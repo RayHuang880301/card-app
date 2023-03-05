@@ -20,7 +20,7 @@ export default function Show() {
   const [profile, setProfile] = useState<Profile | null>({
     name: 'Name',
     bio: 'Bio',
-    avatar: null,
+    avatar: '',
     links: [
       {
         label: 'Link 1',
@@ -65,9 +65,7 @@ export default function Show() {
         <Image
           borderRadius='full'
           boxSize='8rem'
-          src={
-            profile?.avatar ? URL.createObjectURL(profile.avatar) : userIcon.src
-          }
+          src={profile?.avatar ? profile.avatar : userIcon.src}
           alt='Avatar'
           m='2'
         />

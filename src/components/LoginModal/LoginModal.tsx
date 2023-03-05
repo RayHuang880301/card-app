@@ -94,7 +94,9 @@ export default function LoginModal() {
           isLoading={connectLoading}
           loadingText='Connecting...'
           onClick={() => login('metaMask')}
-          leftIcon={<Image src={metamaskIcon.src} w='20px' h='20px' />}
+          leftIcon={
+            <Image src={metamaskIcon.src} w='20px' h='20px' alt='metamask' />
+          }
           justifyContent='left'
           rounded='3xl'
           px='12'

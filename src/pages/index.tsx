@@ -3,10 +3,25 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import Header from '@/components/Header/Header';
+import Main from '@/components/Main/Main';
+import { useEffect } from 'react';
+import { auth } from '@/config/firebase';
+import { useAccount } from 'wagmi';
+import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const router = useRouter();
+  const { address } = useAccount();
+
+  //! will remove
+  useEffect(() => {
+    if (!auth.currentUser && !address) {
+      router.push('/login');
+    }
+  }, [auth.currentUser, address]);
+
   return (
     <>
       <Head>
@@ -15,6 +30,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Main />
     </>
   );
 }

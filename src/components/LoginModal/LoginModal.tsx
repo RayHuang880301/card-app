@@ -1,31 +1,47 @@
-import React, { useState } from 'react';
-import styles from './LoginModal.module.css';
-import { Box, Button, Center, Flex, Heading, VStack } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Button, Center, Heading, Image, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useToast } from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAccount, useConnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import metamaskIcon from '../../assets/metamask.png';
 import {
   auth,
   googleProvider,
   facebookProvider,
   twitterProvider,
 } from '../../config/firebase';
-import { FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useToast } from '@chakra-ui/react';
 import {
   faFacebook,
   faGoogle,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function LoginModal() {
   const router = useRouter();
   const toast = useToast();
+  const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
+  const { connect, isLoading: connectLoading } = useConnect({
+    connector: new InjectedConnector(),
+  });
+
+  useEffect(() => {
+    if (address || auth.currentUser) {
+      router.push('/profile');
+    }
+  }, [address, auth.currentUser]);
+
   const login = async (provider: string) => {
     setIsLoading(true);
     try {
       switch (provider) {
+        case 'metaMask':
+          connect();
+          break;
         case 'google':
           setSelectedProvider('google');
           await signInWithPopup(auth, googleProvider);
@@ -61,7 +77,7 @@ export default function LoginModal() {
   };
   return (
     <Center
-      bg='blue.200'
+      bg='gray.400'
       flexDirection='column'
       justifyContent='start'
       rounded='3xl'
@@ -73,7 +89,26 @@ export default function LoginModal() {
       <Heading fontSize='2rem' color='white'>
         Login
       </Heading>
-      <VStack direction='column' my='8' spacing={4} alignItems='stretch'>
+      <VStack direction='column' my='4' spacing={4} alignItems='stretch'>
+        <Button
+          isLoading={connectLoading}
+          loadingText='Connecting...'
+          onClick={() => login('metaMask')}
+          leftIcon={<Image src={metamaskIcon.src} w='20px' h='20px' />}
+          justifyContent='left'
+          rounded='3xl'
+          px='12'
+          py='6'
+          fontSize='xl'
+          transition={'all 0.2s ease-in-out'}
+          _hover={{
+            bgColor: 'blue.800',
+            color: 'white',
+            transform: 'scale(1.1)',
+          }}
+        >
+          MetaMask
+        </Button>
         <Button
           isLoading={selectedProvider === 'google'}
           loadingText='Google'
@@ -84,9 +119,11 @@ export default function LoginModal() {
           px='12'
           py='6'
           fontSize='xl'
+          transition={'all 0.2s ease-in-out'}
           _hover={{
             bgColor: 'blue.800',
             color: 'white',
+            transform: 'scale(1.1)',
           }}
         >
           Google
@@ -101,9 +138,11 @@ export default function LoginModal() {
           px='12'
           py='6'
           fontSize='xl'
+          transition={'all 0.2s ease-in-out'}
           _hover={{
             bgColor: 'blue.800',
             color: 'white',
+            transform: 'scale(1.1)',
           }}
         >
           Facebook
@@ -118,9 +157,11 @@ export default function LoginModal() {
           px='12'
           py='6'
           fontSize='xl'
+          transition={'all 0.2s ease-in-out'}
           _hover={{
             bgColor: 'blue.800',
             color: 'white',
+            transform: 'scale(1.1)',
           }}
         >
           Twitter

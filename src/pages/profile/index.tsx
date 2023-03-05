@@ -20,13 +20,16 @@ import {
   HStack,
   Box,
   AspectRatio,
+  Toast,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { getIcon } from '@/utils/getIcon';
 import { LinkInfo, Profile } from '@/utils/type';
+import { useAccount } from 'wagmi';
 
 const ProfilePage: NextPage = () => {
   const router = useRouter();
+  const { address } = useAccount();
   const [name, setName] = useState('Eason');
   const [bio, setBio] = useState('Full Stack Developer');
   const [bgImage, setBgImage] = useState('');
@@ -54,29 +57,31 @@ const ProfilePage: NextPage = () => {
   }, [name, bio, bgImage, avatar, fontFamily, links]);
 
   useEffect(() => {
-    if (!auth.currentUser) {
+    if (!auth.currentUser && !address) {
       router.push('/login');
     }
-  }, [auth.currentUser]);
+  }, [auth.currentUser, address]);
 
   const handleUploadAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      getBase64(e.target.files[0]);
+      const file = e.target.files[0];
+      try {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          setAvatar(reader.result as string);
+        };
+      } catch (error) {
+        Toast({
+          title: 'Error uploading image',
+          status: 'error',
+          position: 'top',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     }
   };
-
-  const getBase64 = (file: File) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setAvatar(reader.result as string);
-    };
-    reader.onerror = (error) => {
-      console.log('Error: ', error);
-    };
-  };
-
-  console.log('avatar: ', avatar);
 
   return (
     <Flex
@@ -107,10 +112,12 @@ const ProfilePage: NextPage = () => {
         >
           <Image
             borderRadius='full'
-            // border={'2px solid #f5f5f5'}
+            border={'1px solid #f5f5f5'}
+            borderColor='gray.400'
             boxSize='120px'
-            src={avatar ? avatar : userIcon}
+            src={avatar ? avatar : userIcon.src}
             alt='Avatar'
+            m='2'
           />
           <Heading size='md' color='#f5f5f5'>
             {name ? name : 'Name'}
@@ -169,7 +176,15 @@ const ProfilePage: NextPage = () => {
         <VStack spacing={2} align='left' w='80%' mt='4'>
           <HStack my='6'>
             <VStack align='center' spacing={4} mr='4'>
-              <AspectRatio width='120px' ratio={1} mx='2'>
+              <AspectRatio
+                width='120px'
+                ratio={1}
+                mx='2'
+                transition={'all 0.2s ease-in-out'}
+                _hover={{
+                  transform: 'scale(1.1)',
+                }}
+              >
                 <Box
                   borderColor='gray.300'
                   color='gray.300'
@@ -229,6 +244,10 @@ const ProfilePage: NextPage = () => {
                 border='1px'
                 size='sm'
                 w='150px'
+                transition={'all 0.2s ease-in-out'}
+                _hover={{
+                  transform: 'scale(1.05)',
+                }}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -242,6 +261,10 @@ const ProfilePage: NextPage = () => {
                 border='1px'
                 size='sm'
                 color='#f5f5f5'
+                transition={'all 0.2s ease-in-out'}
+                _hover={{
+                  transform: 'scale(1.05)',
+                }}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
               />
@@ -262,6 +285,10 @@ const ProfilePage: NextPage = () => {
                 border='1px'
                 size='sm'
                 w='150px'
+                transition={'all 0.2s ease-in-out'}
+                _hover={{
+                  transform: 'scale(1.05)',
+                }}
                 // value={'Name'}
                 onChange={(e) =>
                   setLinks((prev) => {
@@ -281,6 +308,10 @@ const ProfilePage: NextPage = () => {
                 border='1px'
                 size='sm'
                 w='100%'
+                transition={'all 0.2s ease-in-out'}
+                _hover={{
+                  transform: 'scale(1.05)',
+                }}
                 // value={'Name'}
                 onChange={(e) =>
                   setLinks((prev) => {
@@ -293,7 +324,14 @@ const ProfilePage: NextPage = () => {
             </Flex>
           ))}
         </VStack>
-        <Button my='8' w='80%'>
+        <Button
+          my='8'
+          w='80%'
+          transition={'all 0.2s ease-in-out'}
+          _hover={{
+            transform: 'scale(1.1)',
+          }}
+        >
           Submit
         </Button>
       </Center>

@@ -7,6 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddIcon } from '@chakra-ui/icons';
 import userIcon from '../../assets/userIcon.svg';
 import {
+  faFacebook,
+  faGoogle,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+
+import {
   Center,
   Heading,
   Image,
@@ -21,6 +27,7 @@ import {
   Box,
   AspectRatio,
   Toast,
+  Icon,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { getIcon } from '@/utils/getIcon';
@@ -124,6 +131,7 @@ const ProfilePage: NextPage = () => {
           </Heading>
           <Text
             w='80'
+            px='2'
             textAlign='center'
             lineHeight='1.2'
             color='#f5f5f5'
@@ -139,7 +147,10 @@ const ProfilePage: NextPage = () => {
                   textAlign='center'
                   key={index}
                   href={link.url ? link.url : '#'}
-                  isExternal
+                  isExternal={link.url ? true : false}
+                  _hover={{
+                    textDecoration: 'none',
+                  }}
                 >
                   <Button
                     leftIcon={<FontAwesomeIcon icon={getIcon(link.url)} />}
@@ -156,8 +167,14 @@ const ProfilePage: NextPage = () => {
                       borderColor: 'gray.500',
                       color: 'gray.800',
                     }}
-                    id='https://www.linkedin.com/in/easonc13'
                   >
+                    {/* <Image
+                      src={getIcon(link.url)}
+                      boxSize='15px'
+                      color={'gray.500'}
+                      mr='2'
+                      filter={'invert(1)'}
+                    ></Image> */}
                     {link.label ? link.label : 'Link'}
                   </Button>
                 </Link>
@@ -183,6 +200,10 @@ const ProfilePage: NextPage = () => {
                 transition={'all 0.2s ease-in-out'}
                 _hover={{
                   transform: 'scale(1.1)',
+                  filter: 'brightness(1.2) saturate(1.2) contrast(1.2)',
+                }}
+                _active={{
+                  transform: 'scale(0.9)',
                 }}
               >
                 <Box
@@ -249,7 +270,9 @@ const ProfilePage: NextPage = () => {
                   transform: 'scale(1.05)',
                 }}
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  e.target.value.length <= 20 ? setName(e.target.value) : '';
+                }}
               />
               <Heading fontSize='xl' color='#f5f5f5'>
                 Set Bio
@@ -330,6 +353,10 @@ const ProfilePage: NextPage = () => {
           transition={'all 0.2s ease-in-out'}
           _hover={{
             transform: 'scale(1.1)',
+            filter: 'brightness(1.2) saturate(1.2) contrast(1.2)',
+          }}
+          _active={{
+            transform: 'scale(0.9)',
           }}
         >
           Submit

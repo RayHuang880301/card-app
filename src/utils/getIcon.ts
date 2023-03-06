@@ -1,54 +1,76 @@
-import { fab, IconDefinition } from '@fortawesome/free-brands-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+  faLinkedin,
+  faGithub,
+  faYoutube,
+  faTwitch,
+  faLine,
+  faReddit,
+  faPinterest,
+  faTumblr,
+  faSpotify,
+  faApple,
+  faGoogle,
+  faMicrosoft,
+  faSteam,
+  faTiktok,
+  faWhatsapp,
+  faTelegram,
+  faDiscord,
+  faSnapchat,
+  faMedium,
+} from '@fortawesome/free-brands-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export const getIcon = (url: string): IconDefinition => {
   if (url.includes('facebook')) {
-    return fab.facebook;
+    return faFacebook;
   } else if (url.includes('twitter')) {
-    return fab.faTwitter;
+    return faTwitter;
   } else if (url.includes('instagram')) {
-    return fab.faInstagram;
+    return faInstagram;
   } else if (url.includes('linkedin')) {
-    return fab.faLinkedin;
+    return faLinkedin;
   } else if (url.includes('github')) {
-    return fab.faGithub;
+    return faGithub;
   } else if (url.includes('youtube')) {
-    return fab.faYoutube;
+    return faYoutube;
   } else if (url.includes('twitch')) {
-    return fab.faTwitch;
+    return faTwitch;
+  } else if (url.includes('line')) {
+    return faLine;
   } else if (url.includes('reddit')) {
-    return fab.faReddit;
+    return faReddit;
   } else if (url.includes('pinterest')) {
-    return fab.faPinterest;
+    return faPinterest;
   } else if (url.includes('tumblr')) {
-    return fab.faTumblr;
-  } else if (url.includes('vimeo')) {
-    return fab.faVimeo;
-  } else if (url.includes('soundcloud')) {
-    return fab.faSoundcloud;
+    return faTumblr;
   } else if (url.includes('spotify')) {
-    return fab.faSpotify;
+    return faSpotify;
   } else if (url.includes('apple')) {
-    return fab.faApple;
+    return faApple;
   } else if (url.includes('google')) {
-    return fab.faGoogle;
+    return faGoogle;
   } else if (url.includes('microsoft')) {
-    return fab.faMicrosoft;
+    return faMicrosoft;
   } else if (url.includes('steam')) {
-    return fab.faSteam;
+    return faSteam;
   } else if (url.includes('tiktok')) {
-    return fab.faTiktok;
+    return faTiktok;
   } else if (url.includes('whatsapp')) {
-    return fab.faWhatsapp;
+    return faWhatsapp;
   } else if (url.includes('t.me')) {
-    return fab.faTelegram;
+    return faTelegram;
   } else if (url.includes('discord')) {
-    return fab.faDiscord;
+    return faDiscord;
   } else if (url.includes('snapchat')) {
-    return fab.faSnapchat;
+    return faSnapchat;
   } else if (url.includes('medium')) {
-    return fab.faMedium;
+    return faMedium;
   } else {
-    return fas.faGlobe;
+    return faGlobe;
   }
 };

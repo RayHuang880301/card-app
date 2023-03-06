@@ -49,6 +49,9 @@ export default function LoginBtn() {
           color: 'black',
           transform: 'scale(1.1)',
         }}
+        _active={{
+          transform: 'scale(0.9)',
+        }}
         onClick={userName ? logout : goPage}
       >
         {userName ? userName : 'Login'}

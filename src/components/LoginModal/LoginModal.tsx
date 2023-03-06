@@ -108,6 +108,9 @@ export default function LoginModal() {
             color: 'white',
             transform: 'scale(1.1)',
           }}
+          _active={{
+            transform: 'scale(0.9)',
+          }}
         >
           MetaMask
         </Button>
@@ -126,6 +129,9 @@ export default function LoginModal() {
             bgColor: 'blue.800',
             color: 'white',
             transform: 'scale(1.1)',
+          }}
+          _active={{
+            transform: 'scale(0.9)',
           }}
         >
           Google
@@ -146,6 +152,9 @@ export default function LoginModal() {
             color: 'white',
             transform: 'scale(1.1)',
           }}
+          _active={{
+            transform: 'scale(0.9)',
+          }}
         >
           Facebook
         </Button>
@@ -164,6 +173,9 @@ export default function LoginModal() {
             bgColor: 'blue.800',
             color: 'white',
             transform: 'scale(1.1)',
+          }}
+          _active={{
+            transform: 'scale(0.9)',
           }}
         >
           Twitter

@@ -1,11 +1,16 @@
-import React, { ReactNode } from 'react'
-import Header from '../Header/Header'
+import { Flex } from '@chakra-ui/react';
+import React, { JSXElementConstructor, ReactElement, ReactNode } from 'react';
+import Footer from '../Footer/Footer';
+import Header from '../Header/Header';
 
-export default function Layout(children: ReactNode) {
+export default function Layout(
+  children: ReactElement<JSXElementConstructor<any>>
+) {
   return (
-    <div>
+    <Flex h='100vh' w='100%' flexDirection='column'>
       <Header />
       {children}
-    </div>
-  )
+      <Footer />
+    </Flex>
+  );
 }

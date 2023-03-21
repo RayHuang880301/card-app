@@ -1,76 +1,76 @@
+import { IconType } from 'react-icons';
 import {
-  faFacebook,
-  faTwitter,
-  faInstagram,
-  faLinkedin,
-  faGithub,
-  faYoutube,
-  faTwitch,
-  faLine,
-  faReddit,
-  faPinterest,
-  faTumblr,
-  faSpotify,
-  faApple,
-  faGoogle,
-  faMicrosoft,
-  faSteam,
-  faTiktok,
-  faWhatsapp,
-  faTelegram,
-  faDiscord,
-  faSnapchat,
-  faMedium,
-} from '@fortawesome/free-brands-svg-icons';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+  FaApple,
+  FaDiscord,
+  FaFacebook,
+  FaGithub,
+  FaGlobe,
+  FaGoogle,
+  FaInstagram,
+  FaLine,
+  FaLinkedin,
+  FaMedium,
+  FaMicrosoft,
+  FaPinterest,
+  FaReddit,
+  FaSnapchat,
+  FaSpotify,
+  FaSteam,
+  FaTelegram,
+  FaTiktok,
+  FaTumblr,
+  FaTwitch,
+  FaTwitter,
+  FaWhatsapp,
+  FaYoutube,
+} from 'react-icons/fa';
 
-export const getIcon = (url: string): IconDefinition => {
+export const getIcon = (url: string): IconType => {
   if (url.includes('facebook')) {
-    return faFacebook;
+    return FaFacebook;
   } else if (url.includes('twitter')) {
-    return faTwitter;
+    return FaTwitter;
   } else if (url.includes('instagram')) {
-    return faInstagram;
+    return FaInstagram;
   } else if (url.includes('linkedin')) {
-    return faLinkedin;
+    return FaLinkedin;
   } else if (url.includes('github')) {
-    return faGithub;
+    return FaGithub;
   } else if (url.includes('youtube')) {
-    return faYoutube;
+    return FaYoutube;
   } else if (url.includes('twitch')) {
-    return faTwitch;
+    return FaTwitch;
   } else if (url.includes('line')) {
-    return faLine;
+    return FaLine;
   } else if (url.includes('reddit')) {
-    return faReddit;
+    return FaReddit;
   } else if (url.includes('pinterest')) {
-    return faPinterest;
+    return FaPinterest;
   } else if (url.includes('tumblr')) {
-    return faTumblr;
+    return FaTumblr;
   } else if (url.includes('spotify')) {
-    return faSpotify;
+    return FaSpotify;
   } else if (url.includes('apple')) {
-    return faApple;
+    return FaApple;
   } else if (url.includes('google')) {
-    return faGoogle;
+    return FaGoogle;
   } else if (url.includes('microsoft')) {
-    return faMicrosoft;
+    return FaMicrosoft;
   } else if (url.includes('steam')) {
-    return faSteam;
+    return FaSteam;
   } else if (url.includes('tiktok')) {
-    return faTiktok;
+    return FaTiktok;
   } else if (url.includes('whatsapp')) {
-    return faWhatsapp;
+    return FaWhatsapp;
   } else if (url.includes('t.me')) {
-    return faTelegram;
+    return FaTelegram;
   } else if (url.includes('discord')) {
-    return faDiscord;
+    return FaDiscord;
   } else if (url.includes('snapchat')) {
-    return faSnapchat;
+    return FaSnapchat;
   } else if (url.includes('medium')) {
-    return faMedium;
+    return FaMedium;
   } else {
-    return faGlobe;
+    return FaGlobe;
   }
 };

@@ -10,11 +10,15 @@ import {
   Image,
   Text,
   Flex,
+  Icon,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import React, { useMemo, useState } from 'react';
 
+Show.getLayout = function getLayout(page: React.ReactElement) {
+  return <>{page}</>;
+};
 export default function Show() {
   const router = useRouter();
   const [profile, setProfile] = useState<Profile | null>({
@@ -93,7 +97,7 @@ export default function Show() {
                 isExternal
               >
                 <Button
-                  leftIcon={<FontAwesomeIcon icon={getIcon(link.url)} />}
+                  leftIcon={<Icon as={getIcon(link.url)} />}
                   w='85%'
                   maxW='400px'
                   fontWeight='600'

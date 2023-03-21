@@ -3,15 +3,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styles from './Profile.module.css';
 import { auth } from '../../config/firebase';
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddIcon } from '@chakra-ui/icons';
 import userIcon from '../../assets/userIcon.svg';
-import {
-  faFacebook,
-  faGoogle,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
-
+import '@fontsource/playfair-display';
+import '@fontsource/abril-fatface';
 import {
   Center,
   Heading,
@@ -94,8 +89,6 @@ const ProfilePage: NextPage = () => {
     <Flex
       className={styles.container}
       flexDirection='row'
-      w='100%'
-      h='100%'
       bg='gray.500'
       alignItems='stretch'
     >
@@ -116,6 +109,7 @@ const ProfilePage: NextPage = () => {
           my='2'
           py='4'
           borderRadius='3xl'
+          fontFamily='bangers'
         >
           <Image
             borderRadius='full'
@@ -126,9 +120,9 @@ const ProfilePage: NextPage = () => {
             alt='Avatar'
             m='2'
           />
-          <Heading size='md' color='#f5f5f5'>
+          <Text fontSize='xl' fontWeight='700' color='#f5f5f5'>
             {name ? name : 'Name'}
-          </Heading>
+          </Text>
           <Text
             w='80'
             px='2'
@@ -153,7 +147,7 @@ const ProfilePage: NextPage = () => {
                   }}
                 >
                   <Button
-                    leftIcon={<FontAwesomeIcon icon={getIcon(link.url)} />}
+                    leftIcon={<Icon as={getIcon(link.url)} />}
                     w='85%'
                     maxW='400px'
                     fontWeight='600'

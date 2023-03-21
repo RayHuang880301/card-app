@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Center, Heading, Image, VStack } from '@chakra-ui/react';
+import {
+  Center,
+  Heading,
+  Image,
+  Text,
+  Icon,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { useToast } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAccount, useConnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import metamaskIcon from '../../assets/metamask.png';
-import {
-  auth,
-  googleProvider,
-  facebookProvider,
-  twitterProvider,
-} from '../../config/firebase';
-import {
-  faFacebook,
-  faGoogle,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
+import { auth, googleProvider } from '../../config/firebase';
+import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from 'react-icons/fa';
 
 export default function LoginModal() {
   const router = useRouter();
@@ -46,17 +44,6 @@ export default function LoginModal() {
           setSelectedProvider('google');
           await signInWithPopup(auth, googleProvider);
           break;
-        case 'facebook':
-          setSelectedProvider('facebook');
-          const result = await signInWithPopup(auth, facebookProvider);
-          const credential = FacebookAuthProvider.credentialFromResult(result);
-          const accessToken = credential?.accessToken;
-          const user = result.user;
-          break;
-        case 'twitter':
-          setSelectedProvider('twitter');
-          await signInWithPopup(auth, twitterProvider);
-          break;
         default:
           break;
       }
@@ -67,9 +54,10 @@ export default function LoginModal() {
       setIsLoading(false);
       setSelectedProvider(null);
       toast({
-        title: 'Authentication error',
-        position: 'top',
+        title: 'Error',
+        description: 'Failed to login',
         status: 'error',
+        position: 'top',
         duration: 9000,
         isClosable: true,
       });
@@ -86,61 +74,76 @@ export default function LoginModal() {
       h='400px'
       shadow={'xl'}
     >
-      <Heading fontSize='2rem' color='white'>
+      <Heading fontSize='2rem' color='white' fontWeight='extrabold'>
         Login
       </Heading>
-      <VStack direction='column' my='4' spacing={4} alignItems='stretch'>
-        <Button
-          isLoading={connectLoading}
-          loadingText='Connecting...'
+      <Flex my='12' w='90%' alignItems='stretch'>
+        <Center
           onClick={() => login('metaMask')}
-          leftIcon={
-            <Image src={metamaskIcon.src} w='20px' h='20px' alt='metamask' />
-          }
-          justifyContent='left'
+          cursor='pointer'
+          bgColor={'white'}
+          color={'blue.800'}
+          mx='1rem'
+          w='10rem'
+          h='11rem'
           rounded='3xl'
-          px='12'
-          py='6'
+          py='1.5rem'
+          flexDirection={'column'}
           fontSize='xl'
+          shadow='xl'
           transition={'all 0.2s ease-in-out'}
           _hover={{
             bgColor: 'blue.800',
             color: 'white',
-            transform: 'scale(1.1)',
+            transform: 'scale(1.2)',
+            fontSize: '1.5rem',
+            shadow: '3xl',
           }}
           _active={{
             transform: 'scale(0.9)',
           }}
         >
-          MetaMask
-        </Button>
-        <Button
-          isLoading={selectedProvider === 'google'}
-          loadingText='Google'
+          <Image src={metamaskIcon.src} w='50px' />
+          <Text fontWeight='bold' mt='2'>
+            MetaMask
+          </Text>
+        </Center>
+        <Spacer />
+        <Center
           onClick={() => login('google')}
-          leftIcon={<FontAwesomeIcon icon={faGoogle} />}
-          justifyContent='left'
+          cursor='pointer'
+          bgColor={'white'}
+          color={'blue.800'}
+          flexDirection={'column'}
+          mx='1rem'
+          w='10rem'
+          h='11rem'
           rounded='3xl'
-          px='12'
-          py='6'
+          py='1.5rem'
           fontSize='xl'
+          shadow='xl'
           transition={'all 0.2s ease-in-out'}
           _hover={{
             bgColor: 'blue.800',
             color: 'white',
-            transform: 'scale(1.1)',
+            transform: 'scale(1.2)',
+            fontSize: '1.5rem',
+            shadow: '3xl',
           }}
           _active={{
             transform: 'scale(0.9)',
           }}
         >
-          Google
-        </Button>
-        <Button
+          <Icon as={FaGoogle} boxSize='50px' />
+          <Text fontWeight='bold' mt='2'>
+            Google
+          </Text>
+        </Center>
+        {/* <Button
           isLoading={selectedProvider === 'facebook'}
           loadingText='Facebook'
           onClick={() => login('facebook')}
-          leftIcon={<FontAwesomeIcon icon={faFacebook} />}
+          leftIcon={<FaFacebook />}
           justifyContent='left'
           rounded='3xl'
           px='12'
@@ -159,10 +162,10 @@ export default function LoginModal() {
           Facebook
         </Button>
         <Button
-          isLoading={selectedProvider === 'twitter'}
-          loadingText='Twitter'
-          onClick={() => login('twitter')}
-          leftIcon={<FontAwesomeIcon icon={faTwitter} />}
+          isLoading={selectedProvider === 'github'}
+          loadingText='Github'
+          onClick={() => login('github')}
+          leftIcon={<FaGithub />}
           justifyContent='left'
           rounded='3xl'
           px='12'
@@ -178,9 +181,9 @@ export default function LoginModal() {
             transform: 'scale(0.9)',
           }}
         >
-          Twitter
-        </Button>
-      </VStack>
+          Github
+        </Button> */}
+      </Flex>
     </Center>
   );
 }

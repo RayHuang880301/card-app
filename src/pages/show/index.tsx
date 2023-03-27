@@ -121,7 +121,7 @@ export default function Show() {
         </VStack>
       </Center>
       <Text color='#f5f5f5' fontSize='xs'>
-        Made with ❤️ by Eason
+        Made by ❤️ InTag
       </Text>
     </Flex>
   );

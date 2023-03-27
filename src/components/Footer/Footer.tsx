@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <Flex bgColor='black' p={6} alignItems='center' justify='center'>
       <Heading fontSize='lg' color='white' size='md'>
-        Made with ❤️ by ❤️ InTag
+        Made by ❤️ InTag
       </Heading>
     </Flex>
   );

@@ -16,11 +16,11 @@ export default function Home() {
   const { address } = useAccount();
 
   //! will remove
-  useEffect(() => {
-    if (!auth.currentUser && !address) {
-      router.push('/login');
-    }
-  }, [auth.currentUser, address]);
+  // useEffect(() => {
+  //   if (!auth.currentUser && !address) {
+  //     router.push('/login');
+  //   }
+  // }, [auth.currentUser, address]);
 
   return (
     <>

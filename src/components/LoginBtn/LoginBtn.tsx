@@ -10,7 +10,7 @@ export default function LoginBtn() {
   const { disconnect } = useDisconnect();
 
   const shortenAddr = (addr: string) => {
-    return `${addr.slice(0, 6)}...${addr.slice(addr.length - 4, addr.length)}`;
+    return `${addr.slice(0, 4)}...${addr.slice(addr.length - 4, addr.length)}`;
   };
   const userName = useMemo(() => {
     if (address) {

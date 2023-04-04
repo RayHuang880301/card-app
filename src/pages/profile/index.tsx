@@ -58,11 +58,11 @@ const ProfilePage: NextPage = () => {
     };
   }, [name, bio, bgImage, avatar, fontFamily, links]);
 
-  useEffect(() => {
-    if (!auth.currentUser && !address) {
-      router.push('/login');
-    }
-  }, [auth.currentUser, address]);
+  // useEffect(() => {
+  //   if (!auth.currentUser && !address) {
+  //     router.push('/login');
+  //   }
+  // }, [auth.currentUser, address]);
 
   const handleUploadAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

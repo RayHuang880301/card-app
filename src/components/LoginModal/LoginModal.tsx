@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Center,
   Heading,
@@ -16,8 +16,14 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import metamaskIcon from '../../assets/metamask.png';
 import { auth, googleProvider } from '../../config/firebase';
 import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from 'react-icons/fa';
+import axios from 'axios';
 
-export default function LoginModal() {
+type Props = {
+  key: string;
+};
+
+export default function LoginModal(props: Props) {
+  const { key } = props;
   const router = useRouter();
   const toast = useToast();
   const { address } = useAccount();
@@ -27,11 +33,25 @@ export default function LoginModal() {
     connector: new InjectedConnector(),
   });
 
+  const profileKey = useMemo(() => {}, [key]);
+
   useEffect(() => {
     if (address || auth.currentUser) {
-      router.push('/profile');
+      router.push('/profile?key=' + profileKey);
     }
   }, [address, auth.currentUser]);
+
+  const getProfileKey = async () => {
+    if (address || auth.currentUser) {
+      const res = await axios.get(
+        'https://api.wagmi.io/api/v1/profiles/key?address=' +
+          (address || auth.currentUser?.uid)
+      );
+      if (res.data) {
+        router.push('/profile?key=' + res.data.key);
+      }
+    }
+  };
 
   const login = async (provider: string) => {
     setIsLoading(true);
@@ -47,9 +67,10 @@ export default function LoginModal() {
         default:
           break;
       }
+      await getProfileKey();
       setIsLoading(false);
       setSelectedProvider(null);
-      router.push('/profile');
+      // router.push('/profile');
     } catch (error) {
       setIsLoading(false);
       setSelectedProvider(null);
